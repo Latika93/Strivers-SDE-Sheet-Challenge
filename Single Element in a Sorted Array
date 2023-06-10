@@ -1,0 +1,51 @@
+class Solution {
+    public int singleNonDuplicate(int[] nums) {
+        
+        int i = 0; int j = nums.length;
+
+        if(nums.length == 1) return nums[0];
+
+        while(i<j){
+            int mid = (i+j)/2;
+            if((mid == 0 || nums[mid] != nums[mid-1]) && (mid == nums.length-1 || nums[mid] != nums[mid+1])) return nums[mid];
+
+            int index = 0;
+            if(nums[mid] == nums[mid-1]){
+                index = mid-1;
+            }else index = mid;
+
+            if(index%2 == 0){
+                i = mid+1;
+            }else{
+                j = mid - 1;
+            }
+        }
+
+        return nums[i];
+    }
+}
+
+Worked on leetcode but not on CN
+But it works that also in c++ only
+#include <vector>
+
+int singleNonDuplicate(std::vector<int>& arr) {
+    int left = 0; 
+    int right = arr.size() - 1;
+
+    while (left < right) {
+        int mid = left + (right - left) / 2; 
+		
+        if (mid % 2 == 1) {
+            mid--; 
+        }
+
+        if (arr[mid] != arr[mid + 1]) {
+            right = mid; 
+        } else {
+            left = mid + 2;
+        }
+    }
+
+    return arr[left]; 
+}
