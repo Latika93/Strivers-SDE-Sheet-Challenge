@@ -1,0 +1,23 @@
+public class Solution {
+    public static List < Integer > getPreOrderTraversal(TreeNode root) {
+    	// Write your code here.
+		Stack<TreeNode> stack = new Stack<>();
+        List<Integer> ans = new ArrayList<>();
+        
+        stack.push(root);
+
+
+
+        while(!stack.isEmpty()){
+            TreeNode cur = stack.pop();
+            if(cur != null){             
+            
+                ans.add(cur.data);
+                if(cur.right != null) stack.push(cur.right);
+                if(cur.left != null) stack.push(cur.left);
+            }
+        }
+
+        return ans;
+    }
+}
