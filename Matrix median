@@ -1,0 +1,45 @@
+import java.util.ArrayList;
+
+public class Solution
+{
+	static int cntSmaller(ArrayList<Integer> m, int target){
+					int low = 0; int high = m.size()-1;
+		
+			while(low<=high){
+				int mid = (low+high)/2;
+				if(target >= m.get(mid)) low = mid+1;
+				else high = mid-1;
+			}
+		return low;
+	}
+	public static int getMedian(ArrayList<ArrayList<Integer>> matrix)
+	{
+		// int low = Integer.MAX_VALUE; int high = 0;
+		int r = matrix.size();
+		int c = matrix.get(0).size();
+
+		// for(int i = 0; i<r; i++){
+		// 	for(int j = 0; j<c; j++){
+		// 		low = Math.min(low, matrix.get(i).get(j));
+		// 		high = Math.max(high, matrix.get(i).get(j));
+		// 	}
+		// }
+
+		int low = 1;
+  		int high = 10000009;
+
+		while(low<=high){
+			int mid = (low+high)/2;
+			int count = 0;
+
+			for(int i = 0; i<matrix.size(); i++){
+				count += cntSmaller(matrix.get(i), mid);
+			}
+
+			if(count <= (r*c)/2) low = mid + 1;
+			else high = mid - 1;
+		}
+		
+		return low;
+	}
+}
