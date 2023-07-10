@@ -1,0 +1,54 @@
+import java.util.* ;
+import java.io.*; 
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class Solution 
+{
+	static void swap(ArrayList<Integer> nums, int i, int j){
+        int temp = nums.get(i);
+		nums.set(i, nums.get(j));
+        nums.set(j, temp);
+    }
+
+    static void reverse(ArrayList<Integer> nums, int p){
+        int n = nums.size()-1;
+        int times = (n + p)/2;
+        int j = 0;
+        for(int i = p; i<=times; i++){
+            swap(nums, i, n-j);
+            j++;
+        }
+    }
+	public static ArrayList<Integer> nextPermutation(ArrayList<Integer> nums) 
+	{
+		
+	int ptr = -1;
+        int n = nums.size();
+        for(int i = n-2; i>=0; i--){
+            if(nums.get(i)<nums.get(i+1)) {
+                ptr = i;
+                break;
+            }
+        }
+
+        if(ptr == -1) {
+            reverse(nums, 0);
+            return nums;
+        }
+
+        int j = 0;
+
+        for(int i = n-1; i>=0; i--){
+            if(nums.get(ptr) < nums.get(i)) {
+                j = i;
+                break;
+            }
+        }
+
+        swap(nums, ptr, j);
+        reverse(nums, ptr+1);
+
+		return nums;
+	}
+}
