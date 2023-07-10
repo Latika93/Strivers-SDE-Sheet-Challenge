@@ -1,0 +1,33 @@
+import java.io.*;
+import java.util.* ;
+
+import java.util.ArrayList;
+
+public class Solution {
+	public static ArrayList<ArrayList<Long>> printPascal(int N) {
+        // Write your code here...
+		ArrayList<ArrayList<Long>> ans = new ArrayList<>();
+
+        ArrayList<Long> ar1 = new ArrayList<>();
+        ar1.add(1L);
+        ans.add(ar1);
+        if(N == 1) return ans;
+
+        ArrayList<Long> ar2 = new ArrayList<>();
+        ar2.add(1L);ar2.add(1L);
+        ans.add(ar2);
+        if(N == 2) return ans;
+
+        for(int i = 2; i < N; i++){
+            ArrayList<Long> ari = new ArrayList<>();
+            ari.add(1L);
+            for(int j = 0; j < ans.get(i-1).size()-1; j++){
+                ari.add(ans.get(i-1).get(j) + ans.get(i-1).get(j+1));
+            }
+            ari.add(1L);
+            ans.add(ari);
+        }
+
+        return ans;
+	}
+}
