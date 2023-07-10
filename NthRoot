@@ -1,0 +1,29 @@
+public class Solution {
+    // static int N;
+    static int nth(int m, int N, int mid) {
+        long result = 1;
+        for (int i = 0; i < N; i++) {
+            result *= m;
+
+            if(result > mid) return 2;
+        }
+        if(result == mid) return 1;
+        return 0;
+    }
+
+    public static int NthRoot(int n, int m) {
+        // Write your code here.
+        int i = 1; int j = m;
+
+        while(i<=j){
+            int mid = (i+j)/2;
+            int cur = nth(mid, n,m);
+            if(cur == 1) return mid;
+
+            if(cur == 0) i = mid+1;
+            else j = mid-1;
+        }
+
+        return -1;
+    }
+}
