@@ -1,0 +1,24 @@
+import java.util.* ;
+import java.io.*; 
+import java.util.ArrayList;
+
+public class Solution{
+    public static int maximumProfit(ArrayList<Integer> pr){
+        
+        int n = pr.size();
+
+        int max[] = new int[n];
+        max[n-1] = pr.get(n-1);
+
+        for(int i = n-2; i>=0; i--){
+            max[i] = Math.max(max[i+1], pr.get(i+1));
+        }
+
+        int maxAns = 0;
+
+        for(int i = 0; i<n; i++){
+            maxAns = Math.max(maxAns, max[i] - pr.get(i));
+        }
+    return maxAns;
+    }
+}
