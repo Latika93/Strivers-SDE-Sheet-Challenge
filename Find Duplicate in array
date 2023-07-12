@@ -1,0 +1,12 @@
+public class Solution{
+    public static int findDuplicate(ArrayList<Integer> arr, int n){
+        // Write your code here.
+        Set<Integer> set = new HashSet<>();
+
+        for(int e: arr){
+            if(!set.add(e))return e;
+        }
+
+        return -1;
+    }
+}
