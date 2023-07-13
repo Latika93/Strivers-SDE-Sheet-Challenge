@@ -1,0 +1,54 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+
+    static long merge(long a[], int left, int mid, int right){
+        ArrayList<Long> temp = new ArrayList<>();
+        int i = left;
+        int j = mid+1;
+        long cnt = 0;
+
+        while(i<=mid && j<=right){
+            if(a[i] <= a[j]){
+                temp.add(a[i]);
+                i++;
+            }else{
+                cnt += (mid - i + 1);
+                temp.add(a[j]);
+                j++;
+            }
+        }
+
+        while(i<=mid){
+            temp.add(a[i]);
+            i++;
+        }
+
+        while(j<=right){
+            temp.add(a[j]);
+            j++;
+        }
+
+        for(int k = left; k<= right; k++){
+            a[k] = temp.get(k-left);
+        }
+
+        return cnt;
+    }
+
+    static long mergesort(long a[], int left, int right){
+        long count = 0;
+        if(left>=right) return count;
+        
+        int mid = (left+right)/2;
+        
+        count += mergesort(a, left, mid);
+        count += mergesort(a, mid+1, right);
+        count += merge(a, left, mid, right);
+
+        return count;
+    }
+    public static long getInversions(long arr[], int n) {
+        return mergesort(arr, 0, n-1);
+    }
+}
