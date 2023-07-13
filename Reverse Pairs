@@ -1,0 +1,74 @@
+import java.util.* ;
+import java.io.*; 
+import java.util.ArrayList;
+
+public class Solution 
+{
+    static int merge(int a[], int left, int mid, int right){
+        ArrayList<Integer> temp = new ArrayList<>();
+        int i = left;
+        int j = mid+1;
+        int cnt = 0;
+
+        for(int k = left; k<=mid; k++){
+            while(j<=right && a[k] > (2 * (long)a[j])){
+                j++;
+            }
+
+            cnt += (j - (mid+1));
+        }
+
+        j = mid + 1;
+
+        while(i<=mid && j<=right){
+            if(a[i] <= a[j]){
+                temp.add(a[i]);
+                i++;
+            }else{
+                temp.add(a[j]);
+                j++;
+            }
+        }
+
+        while(i<=mid){
+            temp.add(a[i]);
+            i++;
+        }
+
+        while(j<=right){
+            temp.add(a[j]);
+            j++;
+        }
+
+        for(int k = left; k<= right; k++){
+            a[k] = temp.get(k-left);
+        }
+
+        return cnt;
+    }
+
+    static int mergesort(int a[], int left, int right){
+        int count = 0;
+        if(left>=right) return count;
+        
+        int mid = (left+right)/2;
+        
+        count += mergesort(a, left, mid);
+        count += mergesort(a, mid+1, right);
+        count += merge(a, left, mid, right);
+
+        return count;
+    }
+
+    public static int reversePairs(ArrayList<Integer> arr) 
+    {
+        int n = arr.size();
+        int ar[] = new int[n];
+
+        for(int i = 0; i<n; i++){
+            ar[i] = arr.get(i);
+        }
+
+        return mergesort(ar, 0, n-1);
+    }
+}
